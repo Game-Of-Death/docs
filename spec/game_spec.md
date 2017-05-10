@@ -1,6 +1,6 @@
 # The Game of Death
 
-Specificiations for the Game of Death, version 1.1. Author shardulc, copyright 2015--17; permission is given to copy, distribute, modify, or otherwise use this document in any manner provided that this copyright and author notice is preserved and that these same permissions are granted to subsequent users.
+Specificiations for the Game of Death. Copyright (c) 2017 The Game of Death Authors; see LICENSE file in root directory for full license text.
 
 
 ## High-Level Overview
