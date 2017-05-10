@@ -1,11 +1,6 @@
 statement := (declaration | assignment | call | control) '\n'
 
-declaration := (('num' | 'str' | 'flag' | 'list' | 'func') ident)
-             | ('num' ident '=' numexpr)
-             | ('str' ident '=' strexpr)
-             | ('flag' ident '=' flagexpr)
-             | ('list' ident '=' listexpr)
-             | ('func' ident '=' funcexpr)
+declaration := ('num' | 'str' | 'flag' | 'list' | 'func') ident ('=' expr)?
 assignment := ident '=' expr
 call := ident '(' params ')'
 control := ifctrl | whilectrl | forctrl
@@ -15,21 +10,25 @@ ifclause := 'if' flagexpr '{' statement* '}'
 elifclause := 'else' ifclause
 elseclause := 'else' '{' statement* '}'
 whilectrl := 'while' flagexpr '{' statement* '}'
-forctrl := 'for' ident 'in' listexpr '{' statement* '}'
+forctrl := 'for' ident 'in' listlike '{' statement* '}'
 
 ident := character+
-expr := numexpr | strexpr | flagexpr | listexpr | funcexpr
+expr := numexpr | flagexpr | funcexpr
+      | listlike | (listlike '[' '-'? numeral+ ']')
 params := (expr ',')* (expr | null)
 
 flagexpr := 'true' | 'false' | call | ('(' flagexpr ')')
           | ('not' flagexpr) | (flagexpr ('and' | 'or') flagexpr)
           | (numexpr ('<' | '>' | '<=' | '>=' | '==' | '!=' ) numexpr)
-listexpr := ('[' (expr ',')* (expr | null) ']') | call | (listexpr '+' expr)
+listlike := listexpr | strexpr
+listexpr := ('[' (expr ',')* (expr | null) ']') | call
+          | (listexpr '+' expr) | (listexpr '[' '-'? numeral+ ':' '-'? numeral+ ']')
 funcexpr := '(' (ident ',')* (ident | null) ')' '{' statement* '}'
 numexpr := number | call | '(' numexpr ')' | (numexpr [-+*/%] numexpr)
 strexpr := string | call | (strexpr '+' strexpr)
+         | (strexpr '[' '-'? numeral+ ':' '-'? numeral+ ']')
 
-number := numeral+ ('.' numeral+)?
+number := '-'? numeral+ ('.' numeral+)?
 string := ''' character+ '''
 character := [0-9a-zA-Z_-]
 numeral := [0-9]
