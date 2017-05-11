@@ -4,6 +4,7 @@ declaration := ('num' | 'str' | 'flag' | 'list' | 'func') ident ('=' expr)?
 assignment := ident '=' expr
 call := ident '(' params ')'
 control := ifctrl | whilectrl | forctrl
+         | ('return' expr) | 'break' | 'continue'
 
 ifctrl := ifclause elifclause* elseclause?
 ifclause := 'if' flagexpr '{' statement* '}'
@@ -12,7 +13,7 @@ elseclause := 'else' '{' statement* '}'
 whilectrl := 'while' flagexpr '{' statement* '}'
 forctrl := 'for' ident 'in' listlike '{' statement* '}'
 
-ident := character+
+ident := [0-9a-zA-Z_-]+
 expr := numexpr | flagexpr | funcexpr
       | listlike | (listlike '[' '-'? numeral+ ']')
 params := (expr ',')* (expr | null)
@@ -29,7 +30,6 @@ strexpr := string | call | (strexpr '+' strexpr)
          | (strexpr '[' '-'? numeral+ ':' '-'? numeral+ ']')
 
 number := '-'? numeral+ ('.' numeral+)?
-string := ''' character+ '''
-character := [0-9a-zA-Z_-]
+string := ''' [^']* '''
 numeral := [0-9]
 null := ''
