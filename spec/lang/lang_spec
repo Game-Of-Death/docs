@@ -21,13 +21,14 @@ params := (expr ',')* (expr | null)
 flagexpr := 'true' | 'false' | call | ('(' flagexpr ')')
           | ('not' flagexpr) | (flagexpr ('and' | 'or') flagexpr)
           | (numexpr ('<' | '>' | '<=' | '>=' | '==' | '!=' ) numexpr)
-listlike := listexpr | strexpr
+listlike := listexpr | strexpr | rangeexpr
 listexpr := ('[' (expr ',')* (expr | null) ']') | call
           | (listexpr '+' expr) | (listexpr '[' ('-'? numeral+)? ':' ('-'? numeral+)? ']')
 funcexpr := '(' (ident ',')* (ident | null) ')' '{' statement* '}'
 numexpr := number | call | '(' numexpr ')' | (numexpr [-+*/%] numexpr)
 strexpr := string | call | (strexpr '+' strexpr)
          | (strexpr '[' ('-'? numeral+)? ':' ('-'? numeral+)? ']')
+rangeexpr := '[' number ',' number ',' '...' number ']'
 
 number := '-'? numeral+ ('.' numeral+)?
 string := ''' [^']* '''

@@ -52,6 +52,9 @@ Control expressions:
     }
 
     for i in [1, 2, 3, 4] {
+        for j in [1, 3, ... 11] {
+            b = a + j
+        }
         if i == 2 {
             continue
         }
