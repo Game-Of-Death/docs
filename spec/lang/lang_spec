@@ -23,11 +23,11 @@ flagexpr := 'true' | 'false' | call | ('(' flagexpr ')')
           | (numexpr ('<' | '>' | '<=' | '>=' | '==' | '!=' ) numexpr)
 listlike := listexpr | strexpr
 listexpr := ('[' (expr ',')* (expr | null) ']') | call
-          | (listexpr '+' expr) | (listexpr '[' '-'? numeral+ ':' '-'? numeral+ ']')
+          | (listexpr '+' expr) | (listexpr '[' ('-'? numeral+)? ':' ('-'? numeral+)? ']')
 funcexpr := '(' (ident ',')* (ident | null) ')' '{' statement* '}'
 numexpr := number | call | '(' numexpr ')' | (numexpr [-+*/%] numexpr)
 strexpr := string | call | (strexpr '+' strexpr)
-         | (strexpr '[' '-'? numeral+ ':' '-'? numeral+ ']')
+         | (strexpr '[' ('-'? numeral+)? ':' ('-'? numeral+)? ']')
 
 number := '-'? numeral+ ('.' numeral+)?
 string := ''' [^']* '''

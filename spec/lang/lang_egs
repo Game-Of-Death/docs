@@ -29,6 +29,7 @@ Things you can do with variables:
     really-good = baz[-2]
     list another-baz = baz[1:4]
     str not-c = c[-1:-3]
+    str still-not-c = c[:2] + c[4:]
 
     flag really-good = (not (a > b)) and (c[5] == 'k')
         or (a * 3.4 <= 42) or (baz[1] != baz[-4])
