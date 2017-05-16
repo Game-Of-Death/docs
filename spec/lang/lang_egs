@@ -1,27 +1,28 @@
 Examples of GoDlang as described in lang_spec:
 
 Declarations and assignments:
+    # comment
     num foo = -3.452
     str bar = 'hello world'
     str empty-for-now
     flag is-good = true
     empty-for-now = 'not empty anymore'
-    
+
     list baz = [
         foo,
         [14, is-good],
         is-good,
         foo
     ]
-    
-    func do-summat = (a, b, c) {
+
+    func do-summat = (num a, num b, num c) {
         num abc = a
         b = c
         return c
     }
 
 Things you can do with variables:
-    num a = 3 + 5.7
+    num a = (3 + 5.7) ^ 2
     num b = (a - 23) % 6
     str c = 'abcdef' + 'ghi'
 
