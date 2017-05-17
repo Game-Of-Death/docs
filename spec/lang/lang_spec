@@ -1,4 +1,5 @@
-statement := (declaration | assignment | call | control) '\n'
+statement := (declaration | assignment | call | control | comment
+           | ((declaration | assignment | call | control) comment)) '\n'
 
 declaration := type ident ('=' expr)?
 assignment := ident '=' expr

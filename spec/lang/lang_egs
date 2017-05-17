@@ -6,7 +6,7 @@ Declarations and assignments:
     str bar = 'hello world'
     str empty-for-now
     bool is-good = true
-    empty-for-now = 'not empty anymore'
+    empty-for-now = 'not empty anymore' # yet another comment
 
     list baz = [
         foo,
