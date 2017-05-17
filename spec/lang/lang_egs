@@ -5,7 +5,7 @@ Declarations and assignments:
     num foo = -3.452
     str bar = 'hello world'
     str empty-for-now
-    flag is-good = true
+    bool is-good = true
     empty-for-now = 'not empty anymore'
 
     list baz = [
@@ -15,7 +15,7 @@ Declarations and assignments:
         foo
     ]
 
-    func do-summat = (num a, num b, num c) {
+    func do-summat = (num a, num b, num c) -> num {
         num abc = a
         b = c
         return c
@@ -26,13 +26,13 @@ Things you can do with variables:
     num b = (a - 23) % 6
     str c = 'abcdef' + 'ghi'
 
-    flag really-good = baz[2]
+    bool really-good = baz[2]
     really-good = baz[-2]
     list another-baz = baz[1:4]
     str not-c = c[-1:-3]
     str still-not-c = c[:2] + c[4:]
 
-    flag really-good = (not (a > b)) and (c[5] == 'k')
+    bool really-good = (not (a > b)) and (c[5] == 'k')
         or (a * 3.4 <= 42) or (baz[1] != baz[-4])
     b = do-summat(0, 0, 0)
 
