@@ -4,30 +4,31 @@ instruction := declaration | assignment | call | control | funcdef
 comment := '#' string
 
 declaration := type ident ('=' expr)?
-assignment := ident '=' expr
+assignment := ident ('[' expr ']')? '=' expr
 call := ident '(' params ')'
 control := ifctrl | whilectrl | forctrl
          | ('return' expr) | 'break' | 'continue'
 
 ifctrl := ifclause elifclause* elseclause?
-ifclause := 'if' flagexpr '{' statement* '}'
+ifclause := 'if' boolexpr '{' statement* '}'
 elifclause := 'else' ifclause
 elseclause := 'else' '{' statement* '}'
-whilectrl := 'while' flagexpr '{' statement* '}'
+whilectrl := 'while' boolexpr '{' statement* '}'
 forctrl := 'for' ident 'in' listlike '{' statement* '}'
 
 type := datatype | functype
 datatype := 'num' | 'str' | 'bool' | ('[' datatype ']') | 'struct'
+          | ('[' datatype ':' datatype ']')
 funcdef := 'func' ident '(' (type ident ',')*  (type ident | null) ')' -> datatype '{' statement* '}'
 functype := '{' '(' (type ',')* (type | null) ')' '->' (datatype | '()') '}'
 
 ident := [0-9a-zA-Z_-]+
-expr := numexpr | flagexpr | funcexpr | structexpr
-      | listlike | (listlike '[' '-'? numeral+ ']')
+expr := numexpr | boolexpr | structexpr | listlike
+      | (listlike '[' '-'? numeral+ ']')
 params := (expr ',')* (expr | null)
 
-flagexpr := 'true' | 'false' | call | ('(' flagexpr ')')
-          | ('not' flagexpr) | (flagexpr ('and' | 'or') flagexpr)
+boolexpr := 'true' | 'false' | call | ('(' boolexpr ')')
+          | ('not' boolexpr) | (boolexpr ('and' | 'or') boolexpr)
           | (numexpr ('<' | '>' | '<=' | '>=' | '==' | '!=' ) numexpr)
 listlike := listexpr | strexpr | rangeexpr
 listexpr := ('[' (expr ',')* (expr | null) ']') | call
@@ -35,7 +36,8 @@ listexpr := ('[' (expr ',')* (expr | null) ']') | call
 numexpr := number | call | '(' numexpr ')' | (numexpr [-+*/%^] numexpr)
 strexpr := string | call | (strexpr '+' strexpr)
          | (strexpr '[' ('-'? numeral+)? ':' ('-'? numeral+)? ']')
-structexpr := '{' (type ident)* '}'
+dictexpr := ('[' (expr ':' expr ',')* ((expr ':' expr) | null) ']') | call
+structexpr := '{' (type ident)* '}' | call
 rangeexpr := '[' number ',' number ',' '...' number ']'
 
 number := '-'? numeral+ ('.' numeral+)?

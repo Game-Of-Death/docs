@@ -14,6 +14,16 @@ Declarations and assignments:
         is-good,
         (not is-good)
     ]
+    baz[1] = not baz[1]
+
+    [str : bool] isTasty = [
+        'pepperoni' : true,
+        'pizza' : true,
+        'orange' : true,
+        'banana' : true,
+        'broccoli' : false
+    ]
+    isTasty['banana'] = false
 
     func do-summat (num a, num b, num c) -> num {
         num abc = a
