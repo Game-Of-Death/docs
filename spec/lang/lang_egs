@@ -16,14 +16,14 @@ Declarations and assignments:
     ]
     baz[1] = not baz[1]
 
-    [str : bool] isTasty = [
-        'pepperoni' : true,
-        'pizza' : true,
-        'orange' : true,
-        'banana' : true,
-        'broccoli' : false
+    [str:bool] isTasty = [
+        'pepperoni': true,
+        'pizza':     true,
+        'orange':    true,
+        'banana':    true,
+        'broccoli':  false
     ]
-    isTasty['banana'] = false
+    isTasty['banana'] = baz[0]
 
     func do-summat (num a, num b, num c) -> num {
         num abc = a
@@ -67,7 +67,7 @@ Control expressions:
     if (2 < 3) {
         do-summat(1, 2, 3)
     } else {
-        {(num, num, num) -> num} call-later = do-summat
+        func call-later = do-summat   # you can use the explicit {} functype syntax if you want
         b = do-summat(4, 5, 6)
         call-later(a, b, 4)
     }
