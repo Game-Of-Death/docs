@@ -19,24 +19,24 @@ forctrl := 'for' ident 'in' listlike '{' statement* '}'
 type := datatype | functype
 datatype := 'num' | 'str' | 'bool' | ('[' datatype ']') | 'struct'
           | ('[' datatype ':' datatype ']')
-funcdef := 'func' ident '(' (type ident ',')*  (type ident | null) ')' -> datatype '{' statement* '}'
-functype := '{' '(' (type ',')* (type | null) ')' '->' (datatype | '()') '}'
+funcdef := 'func' ident '(' (type ident ',')*  (type ident | null) ')' ('->' datatype)? '{' statement* '}'
+functype := ('{' (('(' (type ',')* type) | null) ')' ('->' datatype)? '}') | 'func'
 
 ident := [0-9a-zA-Z_-]+
 expr := numexpr | boolexpr | structexpr | listlike
       | (listlike '[' '-'? numeral+ ']')
-params := (expr ',')* (expr | null)
+params := ((expr ',')* expr) | null
 
 boolexpr := 'true' | 'false' | call | ('(' boolexpr ')')
           | ('not' boolexpr) | (boolexpr ('and' | 'or') boolexpr)
           | (numexpr ('<' | '>' | '<=' | '>=' | '==' | '!=' ) numexpr)
 listlike := listexpr | strexpr | rangeexpr
-listexpr := ('[' (expr ',')* (expr | null) ']') | call
+listexpr := ('[' (((expr ',')* expr) | null) ']') | call
           | (listexpr '+' expr) | (listexpr '[' ('-'? numeral+)? ':' ('-'? numeral+)? ']')
 numexpr := number | call | '(' numexpr ')' | (numexpr [-+*/%^] numexpr)
 strexpr := string | call | (strexpr '+' strexpr)
          | (strexpr '[' ('-'? numeral+)? ':' ('-'? numeral+)? ']')
-dictexpr := ('[' (expr ':' expr ',')* ((expr ':' expr) | null) ']') | call
+dictexpr := ('[' (((expr ':' expr ',')* (expr ':' expr)) | null) ']') | call
 structexpr := '{' (type ident)* '}' | call
 rangeexpr := '[' number ',' number ',' '...' number ']'
 
